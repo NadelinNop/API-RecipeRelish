@@ -1,0 +1,221 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    list-style: none;
+    
+  }
+  
+  body{
+    margin-top:auto;
+    background: #f3f5f9;
+   
+  }
+  
+  .recipe-card {
+    background-color: #f7f7f7;
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .recipe-card img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-right: 10px;
+  }
+  
+  .recipe-details {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .recipe-details h3 {
+    font-size: 18px;
+    margin-bottom: 5px;
+  }
+  
+  .recipe-details button {
+    background-color: #e74c3c;
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    font-size: 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    position: relative;
+    top:-100px;
+  }
+  
+@-webkit-keyframes typing { from { width: 0; } }
+@-webkit-keyframes blink-caret { 50% { border-color: transparent; } }
+
+h1 { 
+  position: relative;
+  top:-30px;
+  left: 300px;
+	font: bold 300% Consolas, Monaco, monospace;
+	border-right: .1em solid black;
+	width: 16.5em; 
+	width: 21ch;
+	margin: 1em 3em;
+	white-space: nowrap;
+	overflow: hidden;
+	-webkit-animation: typing 7s steps(21, end),
+	           blink-caret .5s step-end infinite alternate;
+}
+  table {
+    margin: 0 auto;
+    width: 80%;
+    border-collapse: collapse;
+    font-size: 1.5em;
+    position: relative;
+    top:-400px;
+
+  }
+  
+  th,td {
+   
+    border-bottom: 1px solid black;
+    padding: 30px;
+
+    border-right: 1px solid black; /* set border for all sides */
+
+  }
+  table tr td:nth-child(3) {
+    border-right: none;
+  }
+  table tr th:nth-child(3) {
+    border-right: none;
+  }
+  nav{
+  padding: 25px;
+  flex-direction: column;
+ position: relative;
+ top:-100px;
+  display:grid;
+  
+}
+
+nav,ul{
+  max-width:20%;
+}
+nav ul li  {
+  padding-top: 40px;
+ 
+  font-size:20px;
+}
+nav ul li a{
+   cursor: default;
+  
+   text-decoration: none;
+   color: grey;
+  font-family:'Padauk', sans-serif;
+}
+h2{
+  font-size:40px;
+}
+.uline{
+  width: 70px;
+  height: 25px;
+ border-bottom:3px solid #ff4e4e;
+}
+span {
+   position: relative;
+   display: block;
+   cursor: pointer;
+ }
+ 
+ span:before, span:after {
+   content: '';
+   position: absolute;
+   width: 0%;
+   height: 1px;
+   top: 50%;
+   margin-top: -0.5px;
+   background: red;
+ }
+ 
+ span:before {
+   left: -2.5px;
+ }
+ span:after {
+   right: 2.5px;
+   background: red;
+   transition: width 1s cubic-bezier(0.22, 0.61, 0.36, 1);
+ }
+ 
+ span:hover:before {
+   background: red;
+   width: 100%;
+   transition: width 0.8s cubic-bezier(0.22, 0.61, 0.36, 1);
+ }
+ 
+ span:hover:after {
+   background: transparent;
+   width: 100%;
+   transition: 0s;
+ }
+  button{
+    position: relative;
+    top:200px;
+    left: 100px;
+  }
+  @import url('https://fonts.googleapis.com/css2?family=Concert+One&family=Emilys+Candy&family=Oswald&family=Source+Sans+Pro&display=swap');
+
+
+
+#save-btn {
+  border: none;
+  padding: 0;
+  top: 180%;
+  left: 50%;
+  position: absolute;
+  transform: translate(-50%,-50%);
+  background: hsl(253, 98%, 77%);
+  border-radius: 15px;
+  cursor: pointer;
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+.top {
+  display: block;
+  padding: 15px 45px;
+  border-radius: 15px;
+  font-size: 2rem;
+  background: hsl(278deg 980% 77%);
+  color: white;
+  transform: translateY(-8px);
+}
+
+#save-btn:active .top {
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  h1 {
+    left: 0;
+    margin: 1em;
+  }
+  
+  table {
+    width: 100%;
+  }
+  
+  nav,
+  ul {
+    max-width: 100%;
+  }
+  
+  button {
+    position: static;
+    margin-top: 1em;
+    margin-left: 1em;
+  }
+}

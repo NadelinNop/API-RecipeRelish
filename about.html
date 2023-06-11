@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" >
+  <link rel="preconnect" href="https://fonts.googleapis.com" >
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin >
+  <link rel="preconnect" href="https://fonts.googleapis.com" >
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin >
+  <link rel="stylesheet" href="css/about.css" >
+  <title>About Us</title>
+</head>
+
+<body>
+  <div class="about">
+    <!-- ------------------------------------ -->
+    <div class="upper">
+
+        <!--      here i put the logo i made but the links were not working and the logo didn't show so removed it :(      -->
+        <nav>
+                          <div id="brand">
+                <h2 class="brand-line1">Recipe</h2>
+                <h2 class="brand-line2">Relish</h2>
+              </div>
+            <ul>
+                  <li><span class="head1"><a href="project.html">home</a></span></li>
+                  <li><span><a href="mealplanner.html?user_email={{ userEmail }}" id="mealplanner">meal-planner</a></span></li>
+
+                <li><span class="head1"><a href="login.html" id="account">account</a></span></li>
+                <li><span class="head1"><a href="about.html">about </a></span></li>
+            </ul>
+          </nav>
+        <div class="image">
+          <div class="camp">
+
+          </div>
+        </div>
+
+      <div class="info">
+        <h1>ABOUT Recipe Relish</h1>
+        <p>
+            Recipe Relish is a comprehensive meal planner and recipe website designed to elevate your cooking experience. With an extensive collection of delicious recipes from various cuisines, Recipe Relish provides a platform for culinary enthusiasts to explore and experiment with new flavors.
+        </p>
+      </div>
+    </div>
+    <!-- ------------------------------------ -->
+    <div class="lower">
+      <div class="info" id="lower-info">
+        <h1>ABOUT OUR TEAM</h1>
+        <p>
+Recipe Relish was created by a passionate and innovative group of people. With a deep love for cooking and a vision to simplify meal planning, they've embarked on a mission to create a platform that would revolutionize the way people approach cooking and meal preparation.
+        </p>
+      </div>
+      <div class="slider" id="lower-img">
+        <img src="https://i.pinimg.com/originals/8c/a0/c4/8ca0c4bdfde91e7e0e4a8a0bd576a4a6.gif" alt="Image" id="slider" >
+      </div>
+    </div>
+    <!-- ------------------------------------ -->
+  </div>
+
+<script>
+    console.log(document.getElementById('account'));
+console.log(sessionStorage.getItem('loggedInUser'));
+document.addEventListener('DOMContentLoaded', function() {
+  document.getElementById('account').addEventListener('click', function(event) {
+    // Prevent the default hyperlink behavior
+    event.preventDefault();
+
+    // Check if the "loggedInUser" key exists in the sessionStorage
+    if (sessionStorage.getItem('loggedInUser')) {
+      // Redirect to the dashboard page
+      window.location.href = 'account.html';
+    } else {
+      // Redirect to the login page
+      window.location.href = 'login.html';
+    }
+  });
+});
+document.addEventListener('DOMContentLoaded', function() {
+  console.log('JavaScript code is being executed.');
+  
+  document.getElementById('mealplanner').addEventListener('click', function(event) {
+    // Prevent the default hyperlink behavior
+    event.preventDefault();
+    console.log('Redirecting...');
+    // Check if the "loggedInUser" key exists in the sessionStorage
+    if (sessionStorage.getItem('loggedInUser')) {
+      // Redirect to the specific old meal planner data
+      const userEmail = sessionStorage.getItem('loggedInUser');
+      const oldMealPlannerUrl = `mealplanner.html?user_email=${userEmail}`;
+      console.log('Redirecting to old meal planner:', oldMealPlannerUrl);
+      window.location.href = oldMealPlannerUrl;
+    } else {
+      // Redirect to the default meal planner page
+      console.log('Redirecting to default meal planner');
+      window.location.href = 'mealplanner.html';
+    }
+  });
+});
+</script>
+</body>
+</html>

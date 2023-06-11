@@ -1,0 +1,160 @@
+@import url("https://fonts.googleapis.com/css2?family=Exo+2:wght@100&family=Exo:ital,wght@1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Exo:ital,wght@1,900&display=swap");
+
+.about {
+  padding: 4rem 0rem; /* Increase the padding values to create more space around the content */
+  position: relative;
+  left: -70px;
+}
+
+.upper,
+.lower {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  margin-bottom: 1rem;
+}
+
+.image {
+  background-image: url(https://i.pinimg.com/originals/1c/23/a2/1c23a2a93a7cb29f3faab5abb053d2b6.gif);
+  background-size: cover;
+  width: 36rem;
+  height: 28rem;
+  display: flex;
+  align-items: center;
+  border-radius: 50%;
+}
+nav{
+ size: 100rem;
+}
+
+.info {
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  padding: 0rem 2rem;
+  border-radius: 10px;
+}
+
+.info h1 {
+  font-family: "Exo", sans-serif;
+  font-size: 3rem;
+  font-weight: black 900;
+  margin-bottom: 0rem;
+}
+
+.head1 {
+  text-decoration: white;
+}
+
+.info p {
+  font-family: "Exo 2", sans-serif;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.slider {
+  display: flex;
+  align-items: center;
+  padding-top: 3.5rem;
+}
+
+.slider img {
+  width: 36rem;
+  height: 28rem;
+  border-radius: 50%;
+}
+
+h2 {
+  font-size: 60px;
+}
+
+#brand {
+  visibility: visible;
+  content: "Lorem";
+  max-width: 100%;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: -4% 1%;
+}
+
+.brand-line1,
+.brand-line2 {
+  display: block;
+}
+
+.brand-line2 {
+  margin-top: -0.75em;
+}
+
+ul {
+  max-width: 20%;
+  list-style: none;
+  position: relative;
+  left: -20px;
+  top: 70px;
+}
+
+ul li {
+  
+  padding-top: 60px;
+  font-size: 30px;
+}
+
+ul li a {
+  cursor: default;
+  text-decoration: none;
+  color: grey;
+  font-family: "Padauk", sans-serif;
+}
+
+.uline {
+  width: 70px;
+  height: 25px;
+  border-bottom: 3px solid #ff4e4e;
+}
+
+span.head1 {
+  position: relative;
+  display: block;
+  cursor: pointer;
+}
+
+span.head1:before,
+span.head1:after {
+  content: "";
+  position: absolute;
+  width: 0%;
+  height: 1px;
+  top: 50%;
+  margin-top: -0.5px;
+  background: red;
+}
+
+span.about:before {
+  left: -2.5px;
+}
+
+span.about:after {
+  right: 2.5px;
+  background: red;
+  transition: width 1s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+span:hover:before {
+  background: red;
+  width: 100%;
+  transition: width 0.8s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+span:hover:after {
+  background: transparent;
+  width: 100%;
+  transition: 0s;
+}
+
+/* ------------------------------------ */

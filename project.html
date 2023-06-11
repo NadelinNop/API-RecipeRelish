@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>My Website</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+  <div id="head">
+    <h1 class="head">What would you like to cook today?</h1>
+  </div>
+  <div class="para">
+    Taste great culinary in your kitchen
+    <div class="uline"></div>
+  </div>
+
+  <nav>
+    <h2 id="brand">Recipe Relish</h2>
+    <ul>
+      <li><span><a href="project.html">home</a></span></li>
+      <li><span><a href="mealplanner.html?user_email={{ userEmail }}" id="mealplanner">meal-planner</a></span></li>
+      <li><span><a href="login.html" id="account">account</a></span></li>
+      <li><span><a href="about.html">about </a></span></li>
+    </ul>
+  </nav>
+
+  <div id="app">
+    <app-recipes :recipes="filteredRecipes"></app-recipes>
+    <form class="search-bar" @submit="searchRecipes">
+      <input type="search" name="search" pattern=".*\S.*" required autocomplete="off" v-model="searchQuery">
+      <button class="search-btn" type="submit">
+        <span>Search</span>
+      </button>
+    </form>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script>
+    const {
+      createApp
+    } = Vue
+    const app = createApp()
+    app.component('app-recipes', {
+      data: function() {
+        return {
+          recipes: [],
+          showIndex: null,
+          showAllText: false,
+          searchQuery: '',
+          savedRecipes: []
+        }
+      },
+      template: `
+    <div class="container">
+      <div v-for="(recipe, index) in filteredRecipes" :key="index" class="card" @click="toggleDetails(index)">
+        <h5 class="title">{{ recipe.title }}</h5>
+        <img :src="recipe.image" />
+      
+        <div class="card-details" v-if="showIndex === index">
+          <h6>Ingredients:</h6>
+          <ul>
+            <li v-for="ingredient in recipe.extendedIngredients">{{ ingredient.original }}</li>
+          </ul>
+          <h6>Instructions:</h6>
+          <ol>
+            <li v-for="instruction in recipe.analyzedInstructions[0].steps">{{ instruction.step }}</li>
+          </ol>
+          <button class="save-btn custom-save-btn" @click="saveRecipe(recipe)">Save</button>
+        </div>
+      </div>
+    </div>
+  `,
+      methods: {
+        toggleDetails(index) {
+          if (this.showIndex === index) {
+            this.showIndex = null;
+          } else {
+            this.showIndex = index;
+          }
+        },
+        saveRecipe(recipe) {
+          console.log('Saving recipe:', recipe);
+          this.savedRecipes.push({
+            title: recipe.title,
+            image: recipe.image,
+            instructions: recipe.analyzedInstructions[0].steps
+          });
+          this.saveRecipesToStorage();
+          const userEmail = '{{ userEmail }}'; // Replace with the user's email or unique identifier
+
+  // Redirect to the meal planner page with the user's email as a query parameter
+  window.location.href = `mealplanner.html?user_email=${userEmail}`
+        },
+        saveRecipesToStorage() {
+          localStorage.setItem('savedRecipes', JSON.stringify(this.savedRecipes));
+        },
+        searchRecipes(event) {
+          event.preventDefault(); // Prevent the form from submitting and refreshing the page
+          // Perform the search operation
+          const query = this.searchQuery.toLowerCase();
+          if (!query) {
+            return;
+          }
+          const filteredRecipes = this.recipes.filter(recipe =>
+            recipe.title.toLowerCase().includes(query)
+          );
+          console.log('Filtered Recipes:', filteredRecipes);
+        },
+      },
+      computed: {
+        filteredRecipes() {
+          const query = this.searchQuery.toLowerCase();
+          if (!query) {
+            return this.recipes;
+          }
+          return this.recipes.filter(recipe =>
+            recipe.title.toLowerCase().includes(query)
+          );
+        },
+      },
+      mounted() {
+        const self = this;
+        const savedRecipes = localStorage.getItem('savedRecipes');
+        if (savedRecipes) {
+          this.savedRecipes = JSON.parse(savedRecipes);
+        }
+        const apiKey = "c753d5cd75084dac93888b273875afc4"; // Replace with your Spoonacular API key
+        const apiUrl = `https://api.spoonacular.com/recipes/random?number=21&apiKey=${apiKey}`; // Adjust endpoint URL as needed
+        $.getJSON(apiUrl, function(data) {
+            self.recipes = data.recipes.map(recipe => ({
+              title: recipe.title,
+              image: recipe.image,
+              extendedIngredients: recipe.extendedIngredients,
+              analyzedInstructions: recipe.analyzedInstructions,
+            }));
+          })
+          .fail(function() {
+            alert('getJSON request failed!');
+          })
+      },
+    });
+
+
+    app.mount('#app')
+
+    console.log(sessionStorage.getItem('loggedInUser'));
+    document.addEventListener('DOMContentLoaded', function() {
+      document.getElementById('account').addEventListener('click', function(event) {
+        // Prevent the default hyperlink behavior
+        event.preventDefault();
+
+        // Check if the "loggedInUser" key exists in the sessionStorage
+        if (sessionStorage.getItem('loggedInUser')) {
+          // Redirect to the dashboard page
+          window.location.href = 'account.html';
+        } else {
+          // Redirect to the login page
+          window.location.href = 'login.html';
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>

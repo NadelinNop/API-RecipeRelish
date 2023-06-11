@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>My Website</title>
+  <link rel="stylesheet" href="css/mealplanner.css">
+</head>
+
+<body>
+  <h1>Meal Planner</h1>
+  <nav>
+    <h2 id="brand">Recipe Relish</h2>
+    <ul>
+      <li><span><a href="project.html">home</a></span></li>
+      <li><span><a href="mealplanner?user_email={{ userEmail }}.html">meal-planner</a></span></li>
+      <li><span><a href="login.html" id="account">account</a></span></li>
+      <li><span><a href="about.html">about </a></span></li>
+    </ul>
+  </nav>
+
+  <table id="mealplanner">
+    <!-- ... Meal planner table content ... -->
+  </table>
+
+  <div id="saved-recipes">
+    <h2>Saved Recipes</h2>
+    <div class="recipe-card" v-for="recipe in savedRecipes" :key="recipe.title">
+      <div class="recipe-info">
+        <img :src="recipe.image" :alt="recipe.title">
+        <div class="recipe-details">
+          <h3>{{ recipe.title }}</h3>
+          <button type="submit" @click="deleteRecipe(recipe)">Delete</button>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <button type="submit" id="save-btn">
+    <span class="top">
+      Save
+    </span>
+  </button>
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script>
+      console.log(document.getElementById('account'));
+console.log(sessionStorage.getItem('loggedInUser'));
+document.addEventListener('DOMContentLoaded', function() {
+  document.getElementById('account').addEventListener('click', function(event) {
+    // Prevent the default hyperlink behavior
+    event.preventDefault();
+
+    // Check if the "loggedInUser" key exists in the sessionStorage
+    if (sessionStorage.getItem('loggedInUser')) {
+      // Redirect to the dashboard page
+      window.location.href = 'account.html';
+    } else {
+      // Redirect to the login page
+      window.location.href = 'login.html';
+    }
+  });
+});
+    // Retrieve the value of the "user" parameter from the URL
+    var userEmail = getUrlParameter('user');
+
+    // Function to get the value of a query parameter from the URL
+    function getUrlParameter(name) {
+      name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+      var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+      var results = regex.exec(location.search);
+      return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+    }
+
+    // Function to save meal planner data to localStorage
+    function saveMealPlannerData() {
+      var mealPlannerTable = document.getElementById('mealplanner');
+      localStorage.setItem(userEmail + '_mealPlannerData', mealPlannerTable.innerHTML);
+      alert('Table data saved successfully!');
+    }
+
+    // Function to load meal planner data from localStorage
+    function loadMealPlannerData() {
+      var mealPlannerTable = document.getElementById('mealplanner');
+      var mealPlannerData = localStorage.getItem(userEmail + '_mealPlannerData');
+      if (mealPlannerData) {
+        mealPlannerTable.innerHTML = mealPlannerData;
+      }
+    }
+
+    // Call loadMealPlannerData when the page loads
+    window.onload = loadMealPlannerData;
+
+    // Call saveMealPlannerData whenever the Save button is clicked
+    var saveBtn = document.getElementById('save-btn');
+    saveBtn.addEventListener('click', saveMealPlannerData);
+
+    const app = Vue.createApp({
+      data() {
+        return {
+          savedRecipes: [], // New array to store saved recipes
+        };
+      },
+      methods: {
+
+       
+        deleteRecipe(recipe) {
+          const index = this.savedRecipes.indexOf(recipe);
+          if (index > -1) {
+            this.savedRecipes.splice(index, 1);
+            this.saveRecipesToStorage();
+          }
+        },
+        saveRecipesToStorage() {
+          localStorage.setItem('savedRecipes', JSON.stringify(this.savedRecipes));
+        },
+      },
+      mounted() {
+        // Retrieve saved recipes from localStorage
+        const savedRecipes = localStorage.getItem('savedRecipes');
+        
+        if (savedRecipes) {
+          this.savedRecipes = JSON.parse(savedRecipes);
+        }
+      },
+    }).mount('#saved-recipes');
+  </script>
+</body>
+
+</html>

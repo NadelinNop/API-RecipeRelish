@@ -1,0 +1,81 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Account</title>
+   <!-- Include your JavaScript file here -->
+   <link rel="stylesheet" href="css/account.css">
+</head>
+
+<body>
+    <div class="wrap">
+        <button type="submit"  id="signoutBtn">Sign Out</button>
+      </div>
+  <nav>
+    <div id="brand">
+<h2 class="brand-line1">Recipe</h2>
+<h2 class="brand-line2">Relish</h2>
+</div>
+<ul>
+<li><span class="head1"><a href="project.html">home</a></span></li>
+<li><span><a href="mealplanner.html?user_email={{ userEmail }}" id="mealplanner">meal-planner</a></span></li>
+
+<li><span class="head1"><a href="login.html">account</a></span></li>
+<li><span class="head1"><a href="about.html">about </a></span></li>
+
+    <div class="wrapper">
+        <div class="typing-demo">
+            Welcome to Recipe Relish !
+        </div>
+        <h1 id="greeting"></h1>
+    </div>
+
+</ul>
+</nav>
+
+  <script>
+    // Check if the user is logged in
+    if (sessionStorage.getItem('loggedInUser')) {
+      // Retrieve the user's name from sessionStorage
+      var username = sessionStorage.getItem('loggedInUser');
+
+      // Display a greeting message
+      document.getElementById('greeting').textContent = 'Hello, ' + username + '!';
+
+      // Add a click event listener to the Sign Out button
+      document.getElementById('signoutBtn').addEventListener('click', function() {
+         event.preventDefault();
+        // Remove the logged-in user from sessionStorage
+        sessionStorage.removeItem('loggedInUser');
+
+        // Redirect the user to the login page
+        window.location.href = 'login.html';
+      });
+    } else {
+      // User is not logged in, redirect to the login page
+      window.location.href = 'login.html';
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+  console.log('JavaScript code is being executed.');
+  
+  document.getElementById('mealplanner').addEventListener('click', function(event) {
+    // Prevent the default hyperlink behavior
+    event.preventDefault();
+    console.log('Redirecting...');
+    // Check if the "loggedInUser" key exists in the sessionStorage
+    if (sessionStorage.getItem('loggedInUser')) {
+      // Redirect to the specific old meal planner data
+      const userEmail = sessionStorage.getItem('loggedInUser');
+      const oldMealPlannerUrl = `mealplanner.html?user_email=${userEmail}`;
+      console.log('Redirecting to old meal planner:', oldMealPlannerUrl);
+      window.location.href = oldMealPlannerUrl;
+    } else {
+      // Redirect to the default meal planner page
+      console.log('Redirecting to default meal planner');
+      window.location.href = 'mealplanner.html';
+    }
+  });
+});
+  </script>
+</body>
+</html>
